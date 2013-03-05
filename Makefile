@@ -1,5 +1,6 @@
 MCU=atmega328p
 F_CPU=16000000UL
+PREFIX=/usr/local/arduino
 SUBDIRS=\
 core\
 libs
@@ -24,4 +25,4 @@ $(CLEANDIRS):
 install: $(INSTALLDIRS)
 
 $(INSTALLDIRS):
-	$(MAKE) -C $(@:install-%=%) install
+	$(MAKE) -C $(@:install-%=%) install PREFIX=$(PREFIX)

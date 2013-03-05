@@ -29,7 +29,7 @@ clean:
 	rm -f $(OBJS) $(LIBNAME)
 
 install:
-	mkdir -p $(PREFIX)/lib
+	mkdir -p $(PREFIX)/libs
 	mkdir -p $(PREFIX)/include
 	cp *.h $(PREFIX)/include
-	cp *.a $(PREFIX)/lib
+	cp *.a $(PREFIX)/libs

@@ -1,5 +1,2 @@
 * include other libs
-* create makefile for other libs
-* create configure script (and set flags accordingly + use pins_arduino.h)
-* create top-level makefile
 * create tgz

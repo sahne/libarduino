@@ -1,3 +1,4 @@
+PREFIX=/usr/local/arduino
 SUBDIRS=\
 SPI\
 Firmata\
@@ -26,4 +27,4 @@ $(CLEANDIRS):
 install: $(INSTALLDIRS)
 
 $(INSTALLDIRS):
-	$(MAKE) -C $(@:install-%=%) install
+	$(MAKE) -C $(@:install-%=%) install PREFIX=$(PREFIX)
