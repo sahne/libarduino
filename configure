@@ -1,0 +1,52 @@
+#!/bin/sh
+VARIANT=uno
+MCU=atmega328p
+F_CPU=16000000UL
+UPLOAD=arduino
+PINFILE=standard
+SED=`which sed`
+if [ -z ${SED} ]; then
+	echo "Could not find ''sed''"
+	exit 1;
+fi
+# check needed tools
+if [ ! -x ${SED} ]; then
+	echo "sed missing";
+	exit 1;
+fi
+
+while [ ! -z $1 ]; do
+	case $1 in
+	--variant)
+		shift
+		VARIANT=$1
+		shift
+	;;
+	--mcu)
+		shift
+		MCU=$1
+		shift;
+	;;
+	--fcpu)
+		shift
+		F_CPU=$1
+		shift
+	;;
+	*)
+		echo "unknown parameter $1"
+		exit 1;
+		shift
+		;;
+	esac
+done
+if [ "$VARIANT" != "uno" ]; then
+	MCU=`grep "${VARIANT}.build.mcu" boards.txt | sed 's/.*=//'`
+	F_CPU=`grep "${VARIANT}.build.f_cpu" boards.txt | sed 's/.*=//'`
+	UPLOAD=`grep "${VARIANT}.upload.protocol" boards.txt | sed 's/.*=//'`
+	PINFILE=`grep "${VARIANT}.build.variant" boards.txt | sed 's/.*=//'`
+fi
+echo "configuring for $VARIANT with mcu=$MCU and F_CPU=$F_CPU and upload=${UPLOAD}"
+
+${SED} -e "s/MCU=.*\$/MCU=${MCU}/" -e "s/F_CPU=.*\$/F_CPU=${F_CPU}/" < Makefile.in > Makefile.new
+
+cp variants/${PINFILE}/pins_arduino.h core/pins_arduino.h

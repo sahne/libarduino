@@ -7,6 +7,14 @@ for variant standard see boards.txt
 this will install the corelib and all libs into /usr/local/arduino
 
 other variants
- copy variants/YOUR_VARIANT_HERE/pins_arduino.h to core/pins_ardiuno.h
- make MCU=YOUR_CPU_HERE F_CPU=YOUR_CLOCK_HERE
+
+ configure --variant YOUR_VARIANT_HERE
+ make 
  make install
+
+example:
+ configure --variant leonardo
+ make
+ make install
+
+Esplora lib only works with Leonardo or mega
