@@ -1,0 +1,12 @@
+INSTALL:
+for variant standard see boards.txt
+
+ make
+ make install
+
+this will install the corelib and all libs into /usr/local/arduino
+
+other variants
+ copy variants/YOUR_VARIANT_HERE/pins_arduino.h to core/pins_ardiuno.h
+ make MCU=YOUR_CPU_HERE F_CPU=YOUR_CLOCK_HERE
+ make install
