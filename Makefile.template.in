@@ -1,0 +1,43 @@
+CC=avr-gcc
+CPP=avr-g++
+CFLAGS=-Wall -Os -DF_CPU=$(F_CPU) -mmcu=$(MCU)
+LDFLAGS=-larduino
+LIBS=-L/usr/local/arduino/libs -I/usr/local/arduino/include
+F_CPU=16000000UL
+MCU=atmega328p
+
+OBJCOPY=avr-objcopy
+BIN_FORMAT=ihex
+
+PORT=/dev/cuaU0
+BAUD=19200
+PROTOCOL=arduino
+PART=$(MCU)
+AVRDUDE=avrdude -F -V
+
+RM=rm -f
+
+OBJS=main.o blink.o
+SRC=main.cpp blink.cpp
+
+all: blink.hex
+
+blink.hex: blink.elf
+
+
+blink.elf: $(OBJS)
+	$(CPP) $(CFLAGS) $(LIBS) -o blink.elf $(OBJS) $(LDFLAGS)
+
+.cpp.o: $(SRC)
+	$(CPP) $(CFLAGS) $(LIBS) -c $*.cpp
+
+%.hex: %.elf
+	$(OBJCOPY) -O $(BIN_FORMAT) -R .eeprom $< $@
+
+.PHONY: clean
+clean:
+	$(RM) blink.elf blink.hex blink.o main.o
+
+.PHONY: upload
+upload: blink.hex
+	$(AVRDUDE) -c $(PROTOCOL) -p $(PART) -P $(PORT) -b $(BAUD) -U flash:w:$<

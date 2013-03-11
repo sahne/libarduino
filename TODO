@@ -1,3 +1,5 @@
 * include other libs
 * create tgz
 * make target cscope / ctags
+* configure check for avr-gcc avr-g++ avr-libc avr-binutils
+* rework Makefile.template.in

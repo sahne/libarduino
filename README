@@ -3,5 +3,12 @@ libarduino
 Make arduino libraries available without
 having the IDE installed.
 
+HOWTO:
+1) see INSTALL for library installation
+2) copy Makefile.template to your project directory
+3) adjust your Makefile
+4) use ''make'' to build your project 
+5) use ''make upload'' to upload it on your board
+
 See INSTALL for build instructions.
 See COPYING for license information.

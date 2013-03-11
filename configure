@@ -33,7 +33,8 @@ while [ ! -z $1 ]; do
 		shift
 	;;
 	*)
-		echo "unknown parameter $1"
+		echo "usage: $0 [--variant variant] [--mcu MCU] [--fcpu F_CPU]"
+		echo "See boards.txt for available variants / boards"
 		exit 1;
 		shift
 		;;
@@ -47,6 +48,7 @@ if [ "$VARIANT" != "uno" ]; then
 fi
 echo "configuring for $VARIANT with mcu=$MCU and F_CPU=$F_CPU and upload=${UPLOAD}"
 
-${SED} -e "s/MCU=.*\$/MCU=${MCU}/" -e "s/F_CPU=.*\$/F_CPU=${F_CPU}/" < Makefile.in > Makefile
+${SED} -e "s/^MCU=.*\$/MCU=${MCU}/" -e "s/^F_CPU=.*\$/F_CPU=${F_CPU}/" < Makefile.in > Makefile
+${SED} -e "s/^MCU=.*\$/MCU=${MCU}/" -e "s/^F_CPU=.*\$/F_CPU=${F_CPU}/" < Makefile.template.in > Makefile.template
 
 cp variants/${PINFILE}/pins_arduino.h core/pins_arduino.h
