@@ -47,6 +47,6 @@ if [ "$VARIANT" != "uno" ]; then
 fi
 echo "configuring for $VARIANT with mcu=$MCU and F_CPU=$F_CPU and upload=${UPLOAD}"
 
-${SED} -e "s/MCU=.*\$/MCU=${MCU}/" -e "s/F_CPU=.*\$/F_CPU=${F_CPU}/" < Makefile.in > Makefile.new
+${SED} -e "s/MCU=.*\$/MCU=${MCU}/" -e "s/F_CPU=.*\$/F_CPU=${F_CPU}/" < Makefile.in > Makefile
 
 cp variants/${PINFILE}/pins_arduino.h core/pins_arduino.h
